@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="POST" novalidate>
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages%}
+                <small{% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</small>
+            {% endfor %}
+        {% endif %}
+        {% if form.non_fields_errors %}
+        {% for error in form.none_fields_errors %}
+        <p class="error">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+        {% for forms in form %}
+        {{forms.label_tag}}{{forms}}{{forms.error|striptags}}<br><br>
+        {% endfor %}
+        <input type="submit" value="login">
+        
+        <a href="{% url 'profile'%}">profile</a>
+    </form>
+</body>
+</html>
